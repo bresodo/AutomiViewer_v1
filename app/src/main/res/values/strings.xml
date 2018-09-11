@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Automi - Viewer</string>
+    <string name="log_placeholder">Log:</string>
+    <string name="frame_count_placeholder">Count: 0</string>
+    <string name="port_text_placeholder">9766</string>
+    <string name="ip_text_placeholder">192.168.8.105</string>
+    <string name="connect_button_name" >Connect</string>
+    <string name="disconnect_button_name" >Disconnect</string>
+    <string name="forward_button_name" >Forward</string>
+    <string name="backward_button_name" >Backward</string>
+    <string name="left_button_name" >Left</string>
+    <string name="right_button_name" >Right</string>
+    <string name="up_button_name" >Up</string>
+    <string name="down_button_name" >Down</string>
+    <string name="capture_button_name" >Capture</string>
+    <string name="record_button_name" >Record</string>
+</resources>
