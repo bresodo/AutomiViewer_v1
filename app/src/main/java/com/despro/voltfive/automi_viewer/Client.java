@@ -92,13 +92,21 @@ public class Client {
         return null;
     }
 
-    public void sendCommand(String command) {
+    public boolean sendCommand(String command) {
         try {
             Log.d(TAG, "sendCommand: Sending command to server.");
-            out.write(command.getBytes());
+            if(command.equals("")){
+                command = "alive";
+                out.write(command.getBytes());
+            } else{
+                out.write(command.getBytes());
+            }
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
             Log.d(TAG, "sendCommand: Unable to send command. -> Disconnected");
+            return false;
         }
     }
+
 }
