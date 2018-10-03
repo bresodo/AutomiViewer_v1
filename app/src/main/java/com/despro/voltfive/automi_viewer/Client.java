@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Client {
     private static final String TAG = "Client";
@@ -71,7 +72,7 @@ public class Client {
                 byte frameBuffer[] = new byte[4086];
 
                 StringBuffer stringBuffer = new StringBuffer();
-                int read = 0;
+                int read;
                 int totalRead = 0;
                 int remaining = frameSize;
                 while ((read = in.read(frameBuffer, 0, Math.min(frameBuffer.length, remaining))) > 0) {
@@ -82,7 +83,7 @@ public class Client {
 
                 String frameContent = stringBuffer.toString();
                 Log.d(TAG, "doInBackground: Frame Received...");
-                byte[] imageByte = Base64.decode(frameContent.toString(), Base64.DEFAULT);
+                byte[] imageByte = Base64.decode(frameContent, Base64.DEFAULT);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
                 return bitmap;
             }
@@ -102,7 +103,7 @@ public class Client {
                 out.write(command.getBytes());
             }
             return true;
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
             Log.d(TAG, "sendCommand: Unable to send command. -> Disconnected");
             return false;

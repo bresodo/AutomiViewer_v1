@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int CLIENT_DISCONNECTED = 4;
     private static final int SEND_COMMAND = 11;
     private static final int RECEIVE_FRAME = 21;
+    private static final int SAVE_IMAGE = 31;
+    private static final int SAVE_VIDEO = 32;
 
     private ImageView frameView;
     private TextView frameCountView;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_orig);
 
         frameView = findViewById(R.id.frameView);
         frameCountView = findViewById(R.id.frameCountView);
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     case CLIENT_DISCONNECTED:
                         isClientConnected = false;
                         cdcButton.setText(R.string.connect_button_name);
+                        Log.d(TAG, "handleMessage: Client disconnected succesfully.");
                         break;
                 }
             }

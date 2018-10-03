@@ -20,6 +20,8 @@ public class NetworkHandlerThread extends HandlerThread {
     private static final int CLIENT_DISCONNECTED = 4;
     private static final int RECEIVE_COMMAND = 11;
     private static final int SEND_FRAME = 21;
+    private static final int SAVE_IMAGE = 31;
+    private static final int SAVE_VIDEO = 32;
 
     private Client client;
     private ExecutorService executorService;
@@ -100,16 +102,25 @@ public class NetworkHandlerThread extends HandlerThread {
     }
 
     private void networkLoop() {
+
         while (isConnected) {
             Log.d(TAG, "networkLoop: Sending command...");
-            client.sendCommand(command);
-            command = "";
-            Log.d(TAG, "networkLoop: Receiving frame...");
-            Bitmap bitmap = client.receiveFrame();
-            Message response = new Message();
-            response.what = SEND_FRAME;
-            response.obj = bitmap;
-            mainThreadHandler.sendMessage(response);
+            boolean sent = client.sendCommand(command);
+            if(sent) {
+                command = "";
+                Log.d(TAG, "networkLoop: Receiving frame...");
+                Bitmap bitmap = client.receiveFrame();
+                Message response = new Message();
+                response.what = SEND_FRAME;
+                response.obj = bitmap;
+                mainThreadHandler.sendMessage(response);
+            } else {
+                isConnected = false;
+                mainThreadHandler.sendEmptyMessage(CLIENT_DISCONNECTED);
+                Log.d(TAG, "handleMessage: Server disconnected client.");
+                return;
+            }
         }
+        Log.d(TAG, "handleMessage: Client disconnected from server.");
     }
 }
