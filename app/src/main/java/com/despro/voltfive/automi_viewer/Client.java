@@ -71,12 +71,12 @@ public class Client {
                 int frameSize = Integer.valueOf(stringSize);
                 byte frameBuffer[] = new byte[4086];
 
-                StringBuffer stringBuffer = new StringBuffer();
+                StringBuilder stringBuffer = new StringBuilder();
                 int read;
-                int totalRead = 0;
+//                int totalRead = 0;
                 int remaining = frameSize;
                 while ((read = in.read(frameBuffer, 0, Math.min(frameBuffer.length, remaining))) > 0) {
-                    totalRead += read;
+//                    totalRead += read;
                     remaining -= read;
                     stringBuffer.append(new String(frameBuffer, 0, read));
                 }
@@ -84,8 +84,7 @@ public class Client {
                 String frameContent = stringBuffer.toString();
                 Log.d(TAG, "doInBackground: Frame Received...");
                 byte[] imageByte = Base64.decode(frameContent, Base64.DEFAULT);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
-                return bitmap;
+                return BitmapFactory.decodeByteArray(imageByte, 0, imageByte.length);
             }
         }catch (IOException e) {
             Log.d(TAG, "receiveFrame: Disconnected -> Frame not received.");

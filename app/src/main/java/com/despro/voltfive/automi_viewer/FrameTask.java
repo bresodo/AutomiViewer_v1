@@ -3,31 +3,20 @@ package com.despro.voltfive.automi_viewer;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataOutput;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.net.ConnectException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FrameTask extends AsyncTask<Void, Bitmap, Void> {
     private static final String TAG = "FrameTask";
@@ -65,7 +54,7 @@ public class FrameTask extends AsyncTask<Void, Bitmap, Void> {
     protected void onProgressUpdate(Bitmap... values) {
         frameCountView.get().setText("Frames: ".concat(String.valueOf(frameCount)));
         frameView.get().setImageBitmap(values[0]);
-        cdcButton.get().setText(context.get().getString(R.string.disconnect_button_name));
+        cdcButton.get().setText(context.get().getString(R.string.label_disconnect_button));
         Log.d(TAG, "onProgressUpdate: Frame changed.");
     }
 
@@ -80,7 +69,7 @@ public class FrameTask extends AsyncTask<Void, Bitmap, Void> {
                 e.printStackTrace();
             }
         }
-        cdcButton.get().setText(context.get().getString(R.string.connect_button_name));
+        cdcButton.get().setText(context.get().getString(R.string.label_connect_button));
         Log.d(TAG, "onPreExecute: Disconnecting from server");
     }
 
