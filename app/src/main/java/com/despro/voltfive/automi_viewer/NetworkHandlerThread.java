@@ -123,7 +123,7 @@ public class NetworkHandlerThread extends HandlerThread {
 //                            image.SaveImage(name, bitmap);
                             File filepath_downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
                             Log.d(TAG, "handleMessage: Saving image in " + filepath_downloads.getAbsolutePath());
-                            File baseDir = new File(filepath_downloads + File.separator + "automi");
+                            File baseDir = new File(filepath_downloads + File.separator + "automi" + File.separator + "images");
                             if(!baseDir.exists()) {
                                 baseDir.mkdirs();
                             }

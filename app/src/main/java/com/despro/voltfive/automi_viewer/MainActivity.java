@@ -12,7 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
     private Switch cdcButton;
     private SeekBar zoomSlider, brightnessSlider;
     private EditText ipText, portText, nameText;
-
-
 
     private NetworkHandlerThread networkHandlerThread;
     private Handler mainThreadHandler;
@@ -126,6 +126,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        brightnessSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                Message message = new Message();
+                message.what = SEND_COMMAND;
+                message.obj = "brightness:" + progress;
+                networkHandlerThread.childThreadHandler.sendMessage(message);
+                Log.d(TAG, "onProgressChanged: Zoom: " + progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         cdcButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 String ip = ipText.getText().toString();
@@ -159,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
     private void updateFrame(Bitmap bitmap){
         Log.i(TAG, "updateFrame: Updating frame");
@@ -211,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void  updateCommands(View view) {
         Message message = new Message();
         switch (view.getId()){
@@ -256,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
 //                this.sendTask.execute("up");
                 break;
             case R.id.downBtn:
+                Log.d(TAG, "updateCommands: Presssing Down Button.");
                 commands.add("down");
                 message.what = SEND_COMMAND;
                 message.obj = "down";
