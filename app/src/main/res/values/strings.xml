@@ -4,7 +4,7 @@
     <string name="placeholder_frame_count">Count: 0</string>
     <string name="placeholder_client_name">Anonymous</string>
     <string name="placeholder_port_text">9766</string>
-    <string name="placeholder_ip_text">192.168.254.108</string>
+    <string name="placeholder_ip_text">192.168.99.34</string>
     <string name="label_connect_button" >Connect</string>
     <string name="label_disconnect_button" >Disconnect</string>
     <string name="label_forward_button" >Forward</string>

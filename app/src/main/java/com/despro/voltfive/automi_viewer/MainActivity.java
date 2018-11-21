@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Switch;
 
+import org.opencv.core.Core;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private Intent clientIntent;
 
     private boolean isClientConnected = false;
+
+    static {System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
